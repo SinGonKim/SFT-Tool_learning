@@ -641,19 +641,14 @@ STAGGER_SECS=60 NUM_WORKERS=4 bash datagen/run_parallel_pipeline.sh
 
 **해결:** `mcp_concurrency` 세마포어로 각 Task 내의 동시 MCP 연결을 2개로 제한. 전체 동시 MCP 연결을 `max_workers × mcp_concurrency`로 제어 가능
 
-### 이슈 6: 페르소나 상태 손실
 
-**문제:** 파이프라인 실행 중 중단 후 재실행 시 페르소나 샘플링이 처음부터 시작되어 초반 페르소나가 중복 사용됨
-
-**해결:** `persona_state.json`에 현재 파일 인덱스와 레코드 인덱스를 저장. 재실행 시 중단 위치부터 페르소나 샘플링 재개
-
-### 이슈 7: 프록시 환경 간섭
+### 이슈 6: 프록시 환경 간섭
 
 **문제:** 회사/서버 환경의 HTTP 프록시 설정이 Smithery MCP 연결을 방해하거나 우회함
 
 **해결:** 파이프라인 시작 시 `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY` 환경 변수를 명시적으로 해제 (run_full_pipeline.sh 상단)
 
-### 이슈 8: 도구 정확도 측정
+### 이슈 7: 도구 정확도 측정
 
 **문제:** Task에서 `target_tools`를 지정했지만 Agent가 다른 도구를 사용했을 때, 이것이 실패인지 창의적 해결인지 구분하기 어려움
 
